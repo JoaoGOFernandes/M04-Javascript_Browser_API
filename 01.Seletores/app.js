@@ -48,3 +48,30 @@ items.forEach(item => {
 
 
 //Obs: Um nodeList é uma lista de nós, similar a um array, mas sem todas os metodos
+
+
+//PARENTS
+
+//Children - Obtendo o Filho aparti do pai
+const article = document.querySelector('article')
+
+console.log(article.children)              //Gera um htmlCollection com os elementos filhos de article
+console.log(Array.from(article.children))  //Gera um array baseado no htmlCollection 
+
+//OBS: O htmlCollection não permite forEach por não ser um array
+
+Array.from(article.children).forEach(element => {
+    element.classList.add('article-element')
+})
+
+//ParentElement - obtendo o Pai aparti do filho
+const title = document.querySelector('h2')
+
+console.log(title.parentElement);                  //Pai é o article
+console.log(title.parentElement.parentElement);    //"Vô" é o body, que é o pai do article
+
+//NextElementSibling - obtendo o proximo elemento irmão
+console.log(title.nextElementSibling);
+
+//PreviousElementSibling - obtendo o elemento irmão anterior
+console.log(title.previousElementSibling);

@@ -1,0 +1,19 @@
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: linear-gradient(to top left, #360ce0,  #e15e0c);
+    color: white;
+  }
+
+  li {
+    list-style-type: none;
+    max-width: 200px;
+    padding: 8px;
+    margin: 8px 0;
+    background: #eee;
+    border: 1px dotted #ddd;
+    color: black;
+  }
