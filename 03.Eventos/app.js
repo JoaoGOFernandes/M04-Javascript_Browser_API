@@ -33,7 +33,20 @@ lis.forEach(li =>{
 //event refere-se as informações da interação que aconteceu
 //targget é um metodo que armazena a referencia do elemento que o evento ocorreu
 
+//Adicionando um novo li ao clicar no botão
+// button.addEventListener('click', () =>{
+//     ul.innerHTML += '<li>Novo item</li>'
+// })
 
-button.addEventListener('click', () =>{
-    ul.innerHTML += '<li>Novo item</li>'
+
+
+//APPEND e PREPAND
+//Outra forma de adicionar um elemento na DOM usando 
+button.addEventListener('click',()=>{
+    const li = document.createElement('li')          //Cria um elemento do tipo q especificarmos
+    li.textContent = "Novo Item"
+
+    ul.append(li) //Insere no elemento pai o item que passamos na ultima posição
+    //ul.prepend(li) //Insere no elemento pai o item que passamos na primeira posição
+
 })
