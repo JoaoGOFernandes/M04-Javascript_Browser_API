@@ -8,7 +8,7 @@
 //     //Obtendo entrada de valores
 //     //console.log(usernameInput.value)               //Obtendo o valor digitado por uma seleção externa
 //     //console.log(form.username.value)               //Obtendo o valor digitado pelo id/name dentro do form
-//     // console.log(event.target.username.value)      //obtendo o valor digitado por dentro do evento, mas usando a referencia do id/name
+//     //console.log(event.target.username.value)      //obtendo o valor digitado por dentro do evento, mas usando a referencia do id/name
 // })
 
 // const username = 'joaogo'
@@ -64,5 +64,4 @@ form.username.addEventListener('keyup', event => {
         return
     }
     form.username.setAttribute('class', 'error')
-    
 })
