@@ -22,6 +22,7 @@
  const forms = document.querySelector('form')
  const inputUsername = document.querySelector('#username')
  const button = document.querySelector('.button')
+ 
  const paragraphUsernameFeedback = document.createElement('p')
  const paragraphSubmitFeedback = document.createElement('p')
  

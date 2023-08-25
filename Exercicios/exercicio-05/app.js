@@ -75,16 +75,21 @@ const form = document.querySelector('form')
 form.addEventListener('submit', event => {
     event.preventDefault()
 
-    const inputValue = form.input.value
+    const input = event.target.input
     const inputRegex = /^.{7,}$/
 
-    const isAMatchInput = inputRegex.test(inputValue)
+    const isAMatchInput = inputRegex.test(input.value)
 
     if(isAMatchInput) {
       console.log("O valor inserido no input é válido =)");
-    }else {
-      console.log("Valor inválido =(");
+      input.value = ""
+      input.focus()
+      return
     }
+
+    console.log("Valor inválido =(");
+    input.value = ""
+    input.focus()
   })
 
  
