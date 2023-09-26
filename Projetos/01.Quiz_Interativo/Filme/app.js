@@ -5,7 +5,7 @@ const correctAnswers = ['B','B','B','B']
 
 form.addEventListener('submit', event => {
     event.preventDefault()
-    
+
     let score = 0
     const userAnswers = [
         form.inputQuestion1.value,
@@ -22,12 +22,12 @@ form.addEventListener('submit', event => {
     scrollTo(0,0)  //recebe dois argumentos, a coordenada x e y
 
     finalResult.classList.remove('d-none')
-    
+
     let counter = 0 
     
     const timer = setInterval(() => {
         finalResult.querySelector('span').textContent = `${counter}%`
-        
+    
         if(counter === score){
             clearInterval(timer)
         }

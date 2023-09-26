@@ -58,6 +58,7 @@
     }
 
     console.log(formatDateInfo(dateExample));
+    
 /*
   03
 
