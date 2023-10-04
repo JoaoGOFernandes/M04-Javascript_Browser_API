@@ -13,6 +13,129 @@
       executado quando o request anterior for finalizado.
 */
 
+
+const getPokemon = (url, callback) => {
+  const request = new XMLHttpRequest()
+
+  request.addEventListener('readystatechange', () => {
+    const isRequestOK = request.readyState === 4 && request.status === 200
+    const isRequestNotOK = request.readyState === 200
+    
+    if(isRequestOK){
+      const data = JSON.parse(request.responseText)
+      callback(null, data)
+      return
+    }
+    if(isRequestNotOK){
+      callback('Não foi possível obter o Pokémon', null)
+    }
+  })
+
+  request.open('GET', url)
+  request.send()
+}
+
+const logPokemonDate = (error, data) =>  error 
+?  console.log(error) 
+: console.log(`Pokémon obtido: ${data.name}`)
+
+const getPokemonUrl = id => `https://pokeapi.co/api/v2/pokemon/${id}`
+
+const bulbasaur = getPokemonUrl(1)
+const charmander = getPokemonUrl(4)
+const squirtle = getPokemonUrl(7)
+
+getPokemon(bulbasaur, (error, data)=>{ 
+  logPokemonDate(error, data)
+  getPokemon(charmander, (error, data)=>{
+    logPokemonDate(error, data)
+    getPokemon(squirtle, (error, data)=>{
+      logPokemonDate(error, data)
+    })
+  })
+})
+
+// const getPokemon = (url, callback) => {
+//   const request = new XMLHttpRequest()
+
+//   //Traqueando o progresso da requisição(Saber se a resposta foi obtida)
+//   request.addEventListener('readystatechange', () => {
+//     if(request.readyState === 4 && request.status === 200){
+//       const data = JSON.parse(request.responseText)
+//       callback(null, data)
+//       return
+//     }
+//     if(request.readyState === 200){
+//       callback('Não foi possível obter o Pokémon', null)
+//     }
+//   })
+//   //Traqueando o progresso da requisição(Saber se a resposta foi obtida)
+
+//   request.open('GET', url)
+//   request.send()
+// }
+
+// const logPokemonDate = (error, data) => {   //Contribui para a execução de requisições uma após a outra pq o return nao interfere, por estar em uma função isolada
+//   if (error) {
+//     console.log(error);
+//     return
+//   }  
+//   console.log(`Pokémon obtido: ${data.name}`);
+// }
+
+// getPokemon(bulbasaur, (error, data)=>{ //Isso é feito para que as requisições sejao sequenciais e nao paralelas
+//   logPokemonDate(error, data)
+//   getPokemon(charmander, (error, data)=>{
+//     logPokemonDate(error, data)
+//     getPokemon(squirtle, (error, data)=>{
+//       logPokemonDate(error, data)
+//     })
+//   })
+// })
+
+
+
+
+
+
+// const bulbasaur = 'https://pokeapi.co/api/v2/pokemon/1'
+// const charmander = 'https://pokeapi.co/api/v2/pokemon/4'
+// const squirtle = 'https://pokeapi.co/api/v2/pokemon/7'
+
+
+// const getPokemon = (url, callback) => {
+//   const request = new XMLHttpRequest()
+
+//   request.addEventListener('readystatechange', () => {
+//     if(request.readyState === 4 && request.status === 200){
+//       const data = JSON.parse(request.responseText)
+//       callback(null, data)
+//       return
+//     }
+
+//     if(request.readyState === 4){
+//       callback("Não foi possivel obter o pokemon" ,null)
+//     }
+//   })
+
+//   request.open('GET', url)
+//   request.send()
+// }
+
+// getPokemon (bulbasaur, (error, data)=>{
+//   if (error) {
+//     console.log(error);
+//     return
+//   }
+//   console.log(`Pokémon obtido: ${data.name}`);
+
+//   getPokemon(charmander ,(error, data)=>{  //Pra esse caso, se a primeira requisição falhar o return dela impedirá de fazer esta requsição seguinte
+//         console.log(error);
+//   })
+// })
+
+
+
 /*
   02
 
@@ -35,6 +158,19 @@
   curso, onde falaremos sobre TDD. Vá se aquecendo =)
 */
 
+const map = (array, func) => {
+  let newArray = []
+  const addNewItemToNewArray = item => {
+    const newItem = func(item)
+    newArray.push(newItem)
+  }
+  array.forEach(addNewItemToNewArray)
+  return newArray
+}
+
+console.log(map([1,2,3], number => number * 2));
+console.log(map([1,2,3], number => number * 10));
+
 /*
   03
 
@@ -42,12 +178,19 @@
     objeto person.
 */
 
+// const person = {
+//     name: 'Roger',
+//     getName: () => this.name
+//   }
+//Esse this referencia o window, por conta do arrow function que por sua vez nao tem um this proprio
+  
 const person = {
     name: 'Roger',
-    getName: () => this.name
+    getName: function() {
+      return this.name
+    }
   }
-  
-  // console.log(person.getName())
+  console.log(person.getName())
   
   /*
     04
@@ -58,9 +201,21 @@ const person = {
       delas.
   */
   
-  const x = 'x'
+  // const x = 'x'
   // const x = 'y'
+  //Erro só acontece por conta de ter duas declarações igual no mesmo escopo
   
+  const x = 'x'
+
+  const getX = () => {
+    const x = 'y'
+    return x
+  }
+
+  console.log(x, getX());
+
+
+
   /*
     05
   
@@ -68,12 +223,16 @@ const person = {
       conseguir.
   */
   
-  const getFullName = (user) => {
-    const firstName = user.firstName
-    const lastName = user.lastName
+  // const getFullName = (user) => {
+  //   const firstName = user.firstName
+  //   const lastName = user.lastName
   
-    return `${firstName} ${lastName}`
-  }
+  //   return `${firstName} ${lastName}`
+  // }
+  
+  // console.log(getFullName({ firstName: 'Afonso', lastName: 'Solano' }))
+
+  const getFullName = ({firstName, lastName}) => `${firstName} ${lastName}`
   
   console.log(getFullName({ firstName: 'Afonso', lastName: 'Solano' }))
   
@@ -90,8 +249,27 @@ const person = {
       a mensagem 'Não temos o equivalente hexadecimal para COR';
     - Exiba o hexadecimal de 8 cores diferentes usando a função criada acima.
   */
-  
-  
+
+    const convetToHex = color => {
+      const colors = {
+        red: '#A31419',
+        green: '#10A337',
+        blue: '#4C91F0',
+        yellow: '#F0EA6F',
+        purple: '#8132A3'
+      }
+      return colors[color] 
+        ? `O hexadecimal para a cor ${color} é ${colors[color]}`
+        : `Não temos o equivalente hexadecimal para ${color}`
+    }
+
+    const colors = ['blue', 'black', 'red', 'green', 'pink', 'yellow', 'purple', 'brown']
+
+    const logColorMessage = color => console.log(convetToHex(color))
+    colors.forEach(logColorMessage)
+    // console.log(convetToHex('blue'))
+    // console.log(convetToHex('black'))
+
   /*
     07
   
@@ -115,3 +293,16 @@ const person = {
     { id: 9 , name: 'Gabriel', age: 20, federativeUnit: 'São Paulo' },
     { id: 73, name: 'Aline', age: 19, federativeUnit: 'Brasília' }
   ]
+
+// const agesFrequency = people.reduce((acc, person)=>{
+//   acc[person.age] = acc[person.age] + 1 || 1 //Cuito circuito para quando der NaN devido ao fato de na primeira iteração de uma nova propiedade a expressão a direita retorna undefined
+//   return acc
+// }, {})
+
+const createOrIncrementAgeFrequency = (acc, {age})=>{
+  acc[age] = acc[age] + 1 || 1 
+  return acc
+}
+
+const agesFrequency = people.reduce(createOrIncrementAgeFrequency, {})
+console.log(agesFrequency);
