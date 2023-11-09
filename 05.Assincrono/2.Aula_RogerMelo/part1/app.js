@@ -35,7 +35,7 @@ console.log('d');
 //HTTP: Hypertext Transfer Protocol, um protocolo para comunicação
 //Endpointer: URL que a api ou serviço disponibiliza para usar e obter informações que o servidor armazenam, cada api vai ter um conjunto de api disponibilizada
 //Response: informações que a api disponibiliza como resposta a requisição, geralmente em JSON
-//JSON: Notação de Objeto JavaScript, se parece um um objeto em JS
+//JSON: Notação de Objeto JavaScript, se parece um objeto em JS
 
 const request = new XMLHttpRequest()
 //Objeto de request
@@ -53,7 +53,7 @@ request.addEventListener('readystatechange', () => {
 //READYSTATE: 0(Foi criado a requisição mas nao foi enviado)
 //            1(Open() foi chamado)
 //            2(send() foi chamado e header e status foram recebido )
-//            2(Download dos dados)
+//            3(Download dos dados)
 //            4(Operação tá completa)
 request.addEventListener('readystatechange', () => {
     if (request.readyState === 4 && request.status === 200) {
